@@ -1,7 +1,6 @@
 <script type="text/javascript">
     function WebSocketTest(){
         if("WebSocket" in window){
-            console.log(window)
             console.log("您的浏览器支持 WebSocket!");
             // 打开一个 web socket
             var ws = new WebSocket("ws://localhost:9998/echo");

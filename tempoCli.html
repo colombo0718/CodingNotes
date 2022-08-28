@@ -1,0 +1,60 @@
+<script src="https://unpkg.com/konva@8.3.11/konva.min.js"></script>
+
+<div id="container"></div>
+<script>
+    var stage = new Konva.Stage({
+    container: 'container',
+    width: window.innerWidth,
+    height: window.innerHeight,
+    });
+
+    var layer = new Konva.Layer();
+
+    var line = new Konva.Line({
+        points: [120, 100, 300, 100],
+        stroke: 'black',
+    });
+
+    var end = new Konva.Circle({
+    x: 100,
+    y: 100,
+    radius: 20,
+    stroke: 'black'
+    });
+
+    var red = new Konva.Circle({
+    x: 300,
+    y: 100,
+    radius: 20,
+    fill: 'red',
+    stroke: 'black'
+    });
+
+    layer.add(line)
+    layer.add(red);
+    layer.add(end);
+    stage.add(layer);
+    
+    function run(){
+        red.x(red.x()-1)
+        if( red.x()<100 ){
+            red.x(150+Math.random()*150)
+        }
+    }
+
+    document.addEventListener("keydown", (event) => {
+        if(event.key=='a'){
+            end.strokeWidth(5)
+            end.stroke('yellow')
+        }
+    });
+
+    document.addEventListener("keyup", (event) => {
+        if(event.key=='a'){
+            end.strokeWidth(2)
+            end.stroke('black')
+        }
+    });
+
+    setInterval('run()',10)
+</script>
