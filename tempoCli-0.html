@@ -23,7 +23,7 @@
     });
 
     var red = new Konva.Circle({
-    x: 300,
+    x: 200,
     y: 100,
     radius: 20,
     fill: 'red',
@@ -34,72 +34,36 @@
     layer.add(red);
     layer.add(end);
     stage.add(layer);
-
-
     
     function run(){
-        t+=1
         red.x(red.x()-1)
-
         if( red.x()<100 ){
-            pause=1
-            r=-10
+            console.log(-10)
             red.x(150+Math.random()*150)
-            s0=s1
-            s1=red.x()-100
-            ws.send([t,s0,a,r,s1].join())
-            pause=0
         }
     }
-
-    setInterval('run()',10)
 
     function beat(){
         end.strokeWidth(5)
         end.stroke('yellow')
-        setTimeout(() => {
-            end.strokeWidth(2)
-            end.stroke('black')
-        }, 100);
+        // setTimeout(() => {
+            // end.strokeWidth(2)
+            // end.stroke('black')
+        // }, 100);
 
         if( red.x()<150 ){
-            r=10-(red.x()-100)/5
+            console.log(10-(red.x()-100)/5)
             red.x(150+Math.random()*150)
         }else{
-            r=-1
+            console.log(-1)
         }
-        // console.log(r)
     }
 
     document.addEventListener("keydown", (event) => {
         if(event.key=='a'){
-            // beat()
+            beat()
         }
     });
 
-    var ws = new WebSocket("ws://localhost:9999/echo");
-    var t=0,s0=0,a=0,r=0,s1=0
-    var pause=1
-
-    ws.onopen = function(){
-        pause=0
-        s1=red.x()-100
-        ws.send([t,s0,a,r,s1].join())
-    };
-
-    ws.onmessage = function (evt){ 
-        a = evt.data;
-        r=0
-        if( a=='o' ){
-            beat()
-        }
-        s0=s1
-        s1=red.x()-100
-        if(!pause){
-            ws.send([t,s0,a,r,s1].join())
-            console.log([t,s0,a,r,s1].join())
-        }
-    };
-
-
+    // setInterval('run()',10)
 </script>
